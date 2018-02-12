@@ -1,10 +1,9 @@
 defmodule DemoPoisonJson.FetchJson do
   def fetch(search_term) do
-    wiki_url(search_term)
+    search_term
+    |> wiki_url()
     |> HTTPoison.get()
     |> handle_json()
-
-    # |> IO.inspect()
   end
 
   defp wiki_url(search_term) do

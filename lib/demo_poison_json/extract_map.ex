@@ -2,8 +2,9 @@ defmodule DemoPoisonJson.ExtractMap do
   def extract_from_body(map) do
     {:ok, body} = map
 
-    extract_article =
-      get_in(body, ["query"])
+    {_, extract_article_content} =
+      body
+      |> get_in(["query"])
       |> get_in(["pages"])
       |> Enum.find(fn {key, _value} ->
         case Integer.parse(key) do
@@ -15,7 +16,6 @@ defmodule DemoPoisonJson.ExtractMap do
         end
       end)
 
-    {_, extract_article_content} = extract_article
     Map.fetch!(extract_article_content, "extract")
   end
 end

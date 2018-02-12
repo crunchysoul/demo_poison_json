@@ -1,6 +1,7 @@
 defmodule DemoPoisonJson.Cli do
   def main(args) do
-    parse_args(args)
+    args
+    |> parse_args
     |> process
   end
 
@@ -17,7 +18,8 @@ defmodule DemoPoisonJson.Cli do
   end
 
   def process({search_term}) do
-    DemoPoisonJson.FetchJson.fetch(search_term)
+    search_term
+    |> DemoPoisonJson.FetchJson.fetch()
     |> DemoPoisonJson.ExtractMap.extract_from_body()
     |> string_format
   end
@@ -32,7 +34,8 @@ defmodule DemoPoisonJson.Cli do
   end
 
   def string_format(string) do
-    String.replace(string, ". ", ". \n")
+    string
+    |> String.replace(". ", ". \n")
     |> IO.puts()
   end
 end
